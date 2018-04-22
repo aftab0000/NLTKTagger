@@ -24,9 +24,9 @@ export class TaggerComponent implements OnInit, AfterViewInit {
   public sentence: any;
   public taggedItems: any;
   public bonsaiUrl: 'https://egq911pz9j:87cqshwnha@nltk-9490602531.us-east-1.bonsaisearch.net';
-  public localUrl: 'http://localhost:9200';
+  // public localUrl: 'http://localhost:9200';
   public client =  new elasticsearch.Client({
-          host: this.localUrl
+          host: this.bonsaiUrl,
           // log: 'trace'
       });
   public currentID = 0;
@@ -76,7 +76,7 @@ export class TaggerComponent implements OnInit, AfterViewInit {
                           pos: []
                         };
       });
-    this.contributors = ['aftab', 'baki', 'shohid'];
+    this.contributors = ['aftab', 'baki', 'shohid', 'shakil'];
     this.updatedBy = this.cookieService.get('Contributor');
     // this.getSentence();
     this.getSent(0);
@@ -84,7 +84,7 @@ export class TaggerComponent implements OnInit, AfterViewInit {
     this.getContextMenuData();
   }
 
-  // ################## nevigation ##################
+  // ################## navigation ##################
   // ############################################
   // ############################################
 
@@ -462,7 +462,6 @@ export class TaggerComponent implements OnInit, AfterViewInit {
         hits.forEach((element) => {
           const _title = element['highlight'] ? element['highlight']['title'] :
           element['_source']['title'];
-          console.log(element['_id']);
           result.push({id: element['_id'], title: _title,
                                   productUrl: element['_source']['productUrl']});
         });
