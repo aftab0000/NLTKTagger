@@ -1,0 +1,161 @@
+/* this file will be extracted to main dist folder and is imported in index.html */
+
+
+/* This file is for setting global styles  */
+
+@import 'variables';
+@import '~bootstrap/scss/bootstrap.scss';
+// @import '~jquery-ui/themes/base/theme.css';
+//@import '~jquery-contextmenu/src/sass/jquery.contextMenu.scss';
+// nav {
+//     margin-top: 16px;
+// }
+// nav a {
+//     background-color: $nav-button-color;
+//     color: white;
+//     padding: 8px 16px;
+//     margin: 8px;
+//     vertical-align: middle;
+//     line-height: 1.25;
+//     text-align: center;
+//     text-decoration: none;
+//     border-radius: 4px;
+// }
+html {
+    font-size: 14px;
+}
+
+.context-menu-list {
+    background: $context-menu-background-color;
+    border: $context-menu-border-width $context-menu-border-style $context-menu-border-color;
+    border-radius: $context-menu-border-radius;
+    box-shadow: $context-menu-box-shadow;
+    display: inline-block;
+    font-family: $context-menu-font-family;
+    font-size: $context-menu-font-size;
+    list-style-type: none;
+    margin: $context-menu-container-margin;
+    max-width: $context-menu-max-width;
+    min-width: $context-menu-min-width;
+    padding: $context-menu-container-padding;
+    position: absolute;
+}
+
+.context-menu-item {
+    background-color: $context-menu-background-color;
+    box-sizing: content-box;
+    color: $context-menu-text-color;
+    padding: $context-menu-item-padding;
+    position: relative;
+    user-select: none;
+}
+
+.context-menu-separator {
+    border-bottom: $context-menu-separator-height $context-menu-separator-style $context-menu-separator-color;
+    margin: $context-menu-separator-margin;
+    padding: 0;
+}
+
+.context-menu-item>label>input,
+.context-menu-item>label>textarea {
+    user-select: text;
+}
+
+.context-menu-item.context-menu-hover {
+    background-color: $context-menu-item-color-hover;
+    color: $context-menu-text-color-hover;
+    cursor: pointer;
+}
+
+.context-menu-item.context-menu-disabled {
+    background-color: $context-menu-item-color-disabled;
+    color: $context-menu-text-color-disabled;
+    cursor: default;
+}
+
+.context-menu-input.context-menu-hover {
+    cursor: default;
+    color: $context-menu-text-color;
+}
+
+.context-menu-submenu:after {
+    content: '';
+    border-style: solid;
+    border-width: .25em 0 .25em .25em;
+    border-color: transparent transparent transparent $context-menu-submenu-arrow-color;
+    height: 0;
+    position: absolute;
+    right: .5em;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 0;
+    z-index: 1;
+}
+
+// #s-rectBox {
+//     position: absolute;
+//     z-index: 1090;
+//     border: 2px dashed #cbd3e3;
+//     border-radius: 0;
+// }
+// #feedback {
+//     font-size: 1.4em;
+// }
+.selectable .ui-selecting {
+    background: #FECA40;
+}
+
+.selectable .ui-selected {
+    background: #F39814;
+    color: white;
+}
+
+.selectable {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    width: 60%;
+}
+
+// #selectable li {
+//     margin: 3px;
+//     padding: 0.4em;
+//     font-size: 1.4em;
+//     /* width: 300px; */
+//     list-style-position: inside;
+//     border: 1px solid black;
+//     display: inline;
+// }
+.selectable td {
+    margin: 3px;
+    padding: 0.4em;
+    // font-size: 1.4em;
+    // width: 300px;
+    list-style-position: inside;
+    border: 1px solid black;
+    // display: inline;
+}
+
+table.taggerTable td {
+    border: 1px solid black;
+    padding-left: 5px;
+}
+
+tr.chunk td {
+    text-align: center;
+    // font-size: 1.4em;
+}
+
+.tagger div {
+    display: inline-block;
+}
+
+td.tagged {
+    font-weight: bold;
+    color: limegreen;
+    text-decoration: underline;
+}
+
+div.searchResult em {
+    color: red;
+}

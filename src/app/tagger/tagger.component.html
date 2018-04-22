@@ -1,0 +1,146 @@
+<h3>Tagger</h3>
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm tagger">
+            <div style="display: inline-block;">Contirbuter: </div>
+            <select class='contributor' required [(ngModel)]='updatedBy' (ngModelChange)="contributorChanged(updatedBy)">
+                <option class='option' *ngFor='let option of contributors' [value]="option">{{option}}</option>
+            </select>
+            <div style="padding-left: 25px">
+                <div> Your total contribution : </div>
+                <div>
+                    <h1>{{this.totalContribution}}</h1>
+                </div>
+            </div>
+            <!-- <input type="button" (click)="getSent()" value="Get data"> -->
+            <br/>
+            <div>Total sentence: {{this.totalRecord}}</div>
+            <div style="display: block;">
+                <div style="display: inline-block;">Current sentence: <b> {{this.currentID}}</b></div>
+                <input type="button" (click)="movePre()" value="< Pre">
+                <input type="button" (click)="moveNext()" value="Next >">
+                <div style="display: inline-block;">-------</div>
+                <div style="display: inline-block;">
+                    <input type="button" (click)="moveTo(goto.value)" value="Move to"> <span>: </span>
+                    <input type="text" value="" #goto>
+                </div>
+            </div>
+
+            <table style="height: 110px;" class="taggerTable" width="564">
+                <tr class=" sentence selectable ">
+                    <td *ngFor="let w of this.sentence[ 'words']; let i = index" [attr.data-index]="i">
+                        {{w}}
+                    </td>
+                </tr>
+                <tr class="pos selectable ">
+                    <td *ngFor="let p of this.sentence[ 'pos'] let i = index" [ngClass]="this.taggedItems['pos'][i] ? 'tagged' : null">
+                        {{p}}
+                    </td>
+                </tr>
+                <tr class="chunk ">
+                    <td *ngFor="let c of this.sentence[ 'chunkRow'] " [(attr.colspan)]="c[ 'len'] " [ngClass]="c[ 'tagged'] ? 'tagged' : null">
+                        {{c['tag']}}
+                    </td>
+                </tr>
+            </table>
+            <div [hidden]="!hasChangedByCurrentContributor " style="color: green "> You have changed this sentence before</div>
+            <div [hidden]="!hasChangedByAutoUpdate " style="color: rgb(128, 9, 0) "> This sentence has auto updated by your previous change. Please review.</div>
+            <br/>
+            <input type="button" (click)="undo() " value="Undo">
+            <input type="button" (click)="saveData() " value="Save data ">
+
+            <br/>
+            <!-- <input type="button" (click)="test() " value="Test "> -->
+            <br/>
+            <div class="row ">
+                <div class="col-sm " style="width: 200px ">
+                    <h4>Pos tag definition</h4>
+                    <ul>
+                        <li *ngFor="let t of this.posContextMenuData ">
+                            {{t}}
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-sm " style="width: 300px ">
+                    <h4>Chunk tag definition</h4>
+                    <ul>
+                        <li *ngFor="let t of this.chunkContextMenuData ">
+                            {{t}}
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+
+
+        <div class="col-sm ">
+            <h3>Similar sentence in DB</h3>
+
+            <div class="searchResult">
+                <div>Total result: {{totalSearchResult}}</div>
+                <ul>
+                    <li *ngFor="let s of this.searchResult ">
+
+                        <a href="{{s[ 'productUrl']}} " [innerHTML]="s['title']"> </a>
+                        <span (click)="moveTo(s['id'])"> >>>> ({{s['id']}})</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+<!-- <ol id="selectable ">
+    <li class="ui-widget-content ">Item 1</li>
+    <li class="ui-widget-content ">Item 2</li>
+    <li class="ui-widget-content ">Item 3</li>
+    <li class="ui-widget-content ">Item 4</li>
+    <li class="ui-widget-content ">Item 5</li>
+    <li class="ui-widget-content ">Item 6</li>
+    <li class="ui-widget-content ">Item 7</li>
+</ol> -->
+<!-- 
+<table style="height: 110px; " class="taggerTable " width="564 ">
+    <tbody>
+        <tr class="sentence selectable ">
+            <td style=" ">ACI</td>
+            <td style=" ">Savlon</td>
+            <td style=" ">Freem</td>
+            <td style=" ">Regular</td>
+            <td style=" ">Flow</td>
+            <td style=" ">Belt</td>
+            <td style=" ">System</td>
+            <td style=" ">15</td>
+            <td style=" ">pads</td>
+            <td style=" ">&nbsp;</td>
+        </tr>
+        <tr class="pos selectable ">
+            <td style=" ">NN</td>
+            <td style=" ">NN</td>
+            <td style=" ">NN</td>
+            <td style=" ">NN</td>
+            <td style=" ">JJ</td>
+            <td style=" ">NN</td>
+            <td style=" ">NN</td>
+            <td style=" ">CD</td>
+            <td style=" ">NN</td>
+            <td style=" ">&nbsp;</td>
+        </tr>
+        <tr class="chunk ">
+            <td style=" " colspan="2 ">&nbsp;</td>
+            <td style=" ">&nbsp;</td>
+            <td style=" ">&nbsp;</td>
+            <td style=" ">&nbsp;</td>
+            <td style=" ">&nbsp;</td>
+            <td style=" ">&nbsp;</td>
+            <td style=" ">&nbsp;</td>
+            <td style=" ">&nbsp;</td>
+            <td style=" ">&nbsp;</td>
+            <td style=" ">&nbsp;</td>
+        </tr>
+    </tbody>
+</table> -->

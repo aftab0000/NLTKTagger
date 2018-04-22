@@ -1,0 +1,8 @@
+{
+    "edit": { "name": "Edit" },
+    "cut": { "name": "Cut" },
+    "copy": { "name": "Copy" },
+    "paste": { "name": "Paste" },
+    "delete": { "name": "Delete" },
+    "sep1": "---------"
+}

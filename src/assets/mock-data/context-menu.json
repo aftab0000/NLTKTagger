@@ -1,0 +1,17 @@
+{
+    "pos": {
+        "BN": { "name": "BN -- Bangla" },
+        "NN": { "name": "NN -- Noun" },
+        "CD": { "name": "CD -- Number" },
+        "JJ": { "name": "JJ -- adjective or numeral, ordinal" }
+    },
+    "chunk": {
+        "BR": { "name": "BR -- Brand name" },
+        "FEA": { "name": "FEA -- Feature" },
+        "SIZ": { "name": "SIZ -- Size" },
+        "QTY": { "name": "QTY -- Quantity" },
+        "PN": { "name": "PN -- Product Name" },
+        "NE": { "name": "NE -- Name Entity" },
+        "UNC": { "name": "UNC -- Unknown chunk" }
+    }
+}
