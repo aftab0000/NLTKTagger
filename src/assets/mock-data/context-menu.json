@@ -1,6 +1,7 @@
 {
     "pos": {
         "BN": { "name": "BN -- Bangla" },
+        "UT": { "name": "UT -- Unit" },
         "NN": { "name": "NN -- Noun" },
         "CD": { "name": "CD -- Number" },
         "JJ": { "name": "JJ -- adjective or numeral, ordinal" }

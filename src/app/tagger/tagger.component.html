@@ -83,7 +83,7 @@
                 <ul>
                     <li *ngFor="let s of this.searchResult ">
 
-                        <a href="{{s[ 'productUrl']}} " [innerHTML]="s['title']"> </a>
+                        <a href="{{s[ 'productUrl']}} " [innerHTML]="s['title']" target="_blank"> </a>
                         <span (click)="moveTo(s['id'])"> >>>> ({{s['id']}})</span>
                     </li>
                 </ul>
