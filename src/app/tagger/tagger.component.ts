@@ -8,7 +8,7 @@ declare const $: any;
 import 'webpack-jquery-ui';
 import 'jquery-ui/themes/base/theme.css';
 import 'jquery-contextmenu';
-import * as elasticsearch from 'elasticsearch';
+import * as elasticsearch from 'elasticsearch-browser';
 import { HttpClient } from '@angular/common/http';
 import { EILSEQ } from 'constants';
 import { CookieService } from 'ngx-cookie-service';
@@ -23,10 +23,11 @@ export class TaggerComponent implements OnInit, AfterViewInit {
 
   public sentence: any;
   public taggedItems: any;
-  public bonsaiUrl: 'https://egq911pz9j:87cqshwnha@nltk-9490602531.us-east-1.bonsaisearch.net';
+  public bonsaiUrl: ['https://egq911pz9j:87cqshwnha@nltk-9490602531.us-east-1.bonsaisearch.net'];
   // public localUrl: 'http://localhost:9200';
   public client =  new elasticsearch.Client({
-          host: this.bonsaiUrl,
+    hosts: this.bonsaiUrl,
+    host: 'https://egq911pz9j:87cqshwnha@nltk-9490602531.us-east-1.bonsaisearch.net'
           // log: 'trace'
       });
   public currentID = 0;
