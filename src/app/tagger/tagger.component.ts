@@ -79,8 +79,11 @@ export class TaggerComponent implements OnInit, AfterViewInit {
       });
     this.contributors = ['aftab', 'baki', 'shohid', 'shakil'];
     this.updatedBy = this.cookieService.get('Contributor');
+    console.log(this.cookieService.get('CurrentID'));
+    this.currentID = this.cookieService.get('CurrentID') ?
+                  parseInt(this.cookieService.get('CurrentID')) : 0;
     // this.getSentence();
-    this.getSent(0);
+    this.getSent(this.currentID);
     this.getRecordCount();
     this.getContextMenuData();
   }
@@ -179,6 +182,7 @@ export class TaggerComponent implements OnInit, AfterViewInit {
         let sent = '';
         const hits = resp.hits.hits;
         this.currentID = parseInt(hits[0]['_id']);
+        this.cookieService.set('CurrentID', this.currentID.toString());
         const updateSent = hits[0]['_source']['sentUpdate'].filter((obj) => {
           return obj.updateBy === this.updatedBy;
         });
