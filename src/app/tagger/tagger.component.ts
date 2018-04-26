@@ -26,8 +26,8 @@ export class TaggerComponent implements OnInit, AfterViewInit {
   public bonsaiUrl: ['https://egq911pz9j:87cqshwnha@nltk-9490602531.us-east-1.bonsaisearch.net'];
   // public localUrl: 'http://localhost:9200';
   public client =  new elasticsearch.Client({
-    hosts: this.bonsaiUrl,
-    host: 'https://egq911pz9j:87cqshwnha@nltk-9490602531.us-east-1.bonsaisearch.net'
+     hosts: this.bonsaiUrl,
+     host: 'https://egq911pz9j:87cqshwnha@nltk-9490602531.us-east-1.bonsaisearch.net'
           // log: 'trace'
       });
   public currentID = 0;
@@ -355,10 +355,11 @@ export class TaggerComponent implements OnInit, AfterViewInit {
         if (index !== -1) {
           if (item.words.join('-') ===
           taggedSent.words.slice(index, index + item.words.length).join('-')) {
+            let lastIndex = 100;
             taggedSent.chunk[index] = 'B-' + item.tag;
             newTagSent.chunk[index] = 'B-' + item.tag;
             isSentChanged = true;
-            let lastIndex = 100;
+            lastIndex = index;
             for ( let j = (index + 1); j < (index + item.words.length); j++) {
               taggedSent.chunk[j] = 'I-' + item.tag;
               newTagSent.chunk[j] = 'I-' + item.tag;
