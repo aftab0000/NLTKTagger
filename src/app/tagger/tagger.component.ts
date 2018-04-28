@@ -26,8 +26,8 @@ export class TaggerComponent implements OnInit, AfterViewInit {
   public bonsaiUrl: ['https://egq911pz9j:87cqshwnha@nltk-9490602531.us-east-1.bonsaisearch.net'];
   // public localUrl: 'http://localhost:9200';
   public client =  new elasticsearch.Client({
-     hosts: this.bonsaiUrl,
-     host: 'https://egq911pz9j:87cqshwnha@nltk-9490602531.us-east-1.bonsaisearch.net'
+      hosts: this.bonsaiUrl,
+      host: 'https://egq911pz9j:87cqshwnha@nltk-9490602531.us-east-1.bonsaisearch.net'
           // log: 'trace'
       });
   public currentID = 0;
@@ -136,7 +136,7 @@ export class TaggerComponent implements OnInit, AfterViewInit {
 
   public contributorChanged(contributor) {
     this.cookieService.set('Contributor', contributor);
-    this.getSent(0);
+    this.getSent(this.currentID);
   }
   // ################## data ##################
   // ############################################
@@ -197,7 +197,7 @@ export class TaggerComponent implements OnInit, AfterViewInit {
           this.taggedItems =  updateSent[updateSent.length - 1]['updateTags'];
           this.hasChangedByCurrentContributor = true;
         } else if (autoSentUpdate.length > 0 ) {
-          // take the last updates by contributor
+          // take the last updates by auto update by this contributor
           sent = autoSentUpdate[autoSentUpdate.length - 1]['sent'];
           this.taggedItems =  autoSentUpdate[autoSentUpdate.length - 1]['updateTags'];
           this.hasChangedByAutoUpdate = true;
@@ -339,8 +339,17 @@ export class TaggerComponent implements OnInit, AfterViewInit {
     const bulkSent = [];
     hits.forEach((element) => {
       let isSentChanged = false;
-      const taggedSent = this.splitTaggedSent(element['_source']['sent']);
-      const newTagSent = { words: taggedSent.words, pos: [], chunk: []};
+      const autoSentUpdate = element['_source']['autoSentUpdate'].filter((obj) => {
+        return obj.updateBy === this.updatedBy;
+      });
+      let taggedSent = this.splitTaggedSent(element['_source']['sent']);
+      let newTagSent = { words: taggedSent.words, pos: [], chunk: []};
+      if (autoSentUpdate.length > 0 ) {
+        // if the sentence is previously auto updated then take the last update
+        taggedSent = this.splitTaggedSent(autoSentUpdate[autoSentUpdate.length - 1]['sent']);
+        newTagSent =  autoSentUpdate[autoSentUpdate.length - 1]['updateTags'];
+      }
+
       // first tag the pos
       taggedSent.words.forEach( (item, index) => {
         const i = this.taggedItems.words.indexOf(item);
