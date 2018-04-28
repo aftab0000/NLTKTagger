@@ -79,7 +79,7 @@ export class TaggerComponent implements OnInit, AfterViewInit {
       });
     this.contributors = ['aftab', 'baki', 'shohid', 'shakil'];
     this.updatedBy = this.cookieService.get('Contributor');
-    console.log(this.cookieService.get('CurrentID'));
+    // console.log(this.cookieService.get('CurrentID'));
     this.currentID = this.cookieService.get('CurrentID') ?
                   parseInt(this.cookieService.get('CurrentID')) : 0;
     // this.getSentence();
@@ -108,7 +108,6 @@ export class TaggerComponent implements OnInit, AfterViewInit {
     if (this.currentID + 1 < this.totalRecord) {
       if (this.isUnsavedData) {
         this.saveData().then(() => {
-          console.log('move next get sent');
           this.getSent(this.currentID + 1);
         });
       } else {
@@ -284,7 +283,7 @@ export class TaggerComponent implements OnInit, AfterViewInit {
       ]
     }).then((resp) => {
       this.getTotalContribution();
-      console.log('Data saved');
+      // console.log('Data saved');
       this.isUnsavedData = false;
     }, (err, resp) => {
       if (err) {
@@ -306,7 +305,7 @@ export class TaggerComponent implements OnInit, AfterViewInit {
           bool: {
             must: {
               query_string : {
-                query: str
+                query: this.sanitizeValue(str)
               }
             },
             must_not: [{
@@ -335,7 +334,7 @@ export class TaggerComponent implements OnInit, AfterViewInit {
       }
       cursor = cursor + element.len;
     });
-    console.log('chunk words :', chunkWords);
+    // console.log('chunk words :', chunkWords);
     let numberOfSentenceChanged = 0;
     const bulkSent = [];
     hits.forEach((element) => {
@@ -436,9 +435,9 @@ export class TaggerComponent implements OnInit, AfterViewInit {
   }
 
   private searchTitle(str) {
-    str = str.split('"').join('');
-    str = str.split('/').join(' ');
-    str = str.split('+').join(' ');
+    // str = str.split('"').join('');
+    // str = str.split('/').join(' ');
+    // str = str.split('+').join(' ');
     this.searchResult = [];
     this.client.search({
       index: 'chaldal-pos',
@@ -449,7 +448,7 @@ export class TaggerComponent implements OnInit, AfterViewInit {
           bool: {
             must: {
               query_string : {
-                query: str
+                query: this.sanitizeValue(str)
               }
             }
           }
@@ -631,6 +630,12 @@ export class TaggerComponent implements OnInit, AfterViewInit {
 
   private unselect(item) {
     $('tr.' + item + ' .ui-selected').removeClass('ui-selected');
+  }
+
+  private sanitizeValue(value) {
+    return value
+      .replace(/[<>]/g, ``)
+      .replace(/([+-=&|><!(){}[\]^"~*?:\\/])/g, '\\$1');
   }
 
 }

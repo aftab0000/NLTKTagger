@@ -3,7 +3,7 @@
 <div class="container">
     <div class="row">
         <div class="col-sm tagger">
-            <div style="display: inline-block;">Contirbuter: </div>
+            <div style="display: inline-block;">Contributor: </div>
             <select class='contributor' required [(ngModel)]='updatedBy' (ngModelChange)="contributorChanged(updatedBy)">
                 <option class='option' *ngFor='let option of contributors' [value]="option">{{option}}</option>
             </select>
