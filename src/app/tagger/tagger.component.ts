@@ -13,23 +13,43 @@ import { HttpClient } from '@angular/common/http';
 import { EILSEQ } from 'constants';
 import { CookieService } from 'ngx-cookie-service';
 
+
 @Component({
   selector: 'tagger',
   styles: [`
   `],
   templateUrl: './tagger.component.html'
 })
+
+
+
+
 export class TaggerComponent implements OnInit, AfterViewInit {
 
   public sentence: any;
   public taggedItems: any;
-  public bonsaiUrl: ['https://egq911pz9j:87cqshwnha@nltk-9490602531.us-east-1.bonsaisearch.net'];
-  // public localUrl: 'http://localhost:9200';
-  public client =  new elasticsearch.Client({
-      hosts: this.bonsaiUrl,
-      host: 'https://egq911pz9j:87cqshwnha@nltk-9490602531.us-east-1.bonsaisearch.net'
-          // log: 'trace'
-      });
+  // public bonsaiUrl: ['https://egq911pz9j:87cqshwnha@nltk-9490602531.us-east-1.bonsaisearch.net'];
+  
+  // public client =  new elasticsearch.Client({
+  //     hosts: this.bonsaiUrl,
+  //     host: 'https://egq911pz9j:87cqshwnha@nltk-9490602531.us-east-1.bonsaisearch.net'
+  //     });
+
+  // public client = new elasticsearch.Client({ 
+  //   host: 'https://egq911pz9j:87cqshwnha@nltk-9490602531.us-east-1.bonsaisearch.net',
+  //   auth: {
+  //     username: 'egq911pz9j',
+  //     password: '87cqshwnha'
+  //   } 
+  // })
+
+  public localUrl: 'http://elastic:Jul2010@localhost:9200';
+  
+
+  public client = new elasticsearch.Client({ 
+    hosts: ['http://elastic:Jul2010@localhost:9200'],
+    host: 'http://elastic:Jul2010@localhost:9200', log: 'trace'
+  })
   public currentID = 0;
   public contributors: any;
   public updatedBy: any;
@@ -285,7 +305,7 @@ export class TaggerComponent implements OnInit, AfterViewInit {
       this.getTotalContribution();
       // console.log('Data saved');
       this.isUnsavedData = false;
-    }, (err, resp) => {
+    }, (err) => {
       if (err) {
         alert(err);
       }
@@ -416,7 +436,7 @@ export class TaggerComponent implements OnInit, AfterViewInit {
       body: bulkRequest
     }).then((resp) => {
       console.log('Updated bulk :', resp);
-    }, (err, resp) => {
+    }, (err) => {
       if (err) {
         alert(err);
       }
